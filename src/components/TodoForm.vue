@@ -23,40 +23,36 @@
 
     <div class="modal-body">
       <input type="text" class="form-control"/>
-      <p>Elija una categoría:</p>
-<div class="card-body">
+    </div>
 
-</div>
+<fieldset>
+  <legend>Elija una categoría</legend>
 <!--Ocio -->
 <div class="custom-control">
-  <input type="radio" name="custom-radio-1" class="custom-control-input" value="ocio"/>
-      <label class="custom-control-label ocio" for="customRadio1">
-        <div class="icon-wrapper">
-        </div>Ocio
-        <i id="ocio" class="fa fa-chess" style="color: red;"></i>
-      </label>
-</div>
-<!--Fitness -->
-<div class="custom-control">
-  <input type="radio" name="custom-radio-2" class="custom-control-input" value="fitness"/>
-      <label class="custom-control-label ocio" for="customRadio1">
-        <div class="icon-wrapper">
-        </div>Fitness
-        <i id="ocio" class="fa fa-baseball-ball" style="color: green;"></i>
-      </label>
-</div>
-<!--Compras -->
-<div class="custom-control">
-  <input type="radio" name="custom-radio-3" class="custom-control-input" value="compras"/>
-      <label class="custom-control-label ocio" for="customRadio1">
-        <div class="icon-wrapper">
-        </div>Compras
-        <i id="ocio" class="fa fa-coins" style="color: blue;"></i>
-      </label>
+  <label>
+    <input type="checkbox" name="checkbox-1" class="custom-control-input" value="ocio"/>
+    <i id="ocio" class="fa fa-chess" style="color: red;"></i> Ocio
+  </label>
 </div>
 
-    </div>
-  </div>
+<!--Fitness -->
+<div class="custom-control">
+  <label>
+    <input type="checkbox" name="checkbox-2" class="custom-control-input" value="fitness"/>
+    <i id="ocio" class="fa fa-baseball-ball" style="color: green;"></i> Fitness
+  </label>
+</div>
+
+<!--Compras -->
+<div class="custom-control">
+  <label>
+    <input type="checkbox" name="checkbox-3" class="custom-control-input" value="compras">
+    <i id="ocio" class="fa fa-coins" style="color: blue;"></i> Compras
+  </label>
+</div>
+
+</fieldset>
+</div>
 </modal>
 
 </div>
