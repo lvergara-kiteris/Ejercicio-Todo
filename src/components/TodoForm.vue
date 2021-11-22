@@ -17,13 +17,8 @@
 <modal @close="toggleModal" :modalActive="modalActive">
   <div class="modal-content">
 
-    <div class="modal-header">
       <h2 class="modal-title">Añada su tarea: </h2>
-    </div>
-
-    <div class="modal-body">
-      <input type="text" class="form-control"/>
-    </div>
+      <input type="text" class="input">
 
 <fieldset>
   <legend>Elija una categoría</legend>
@@ -52,6 +47,7 @@
 </div>
 
 </fieldset>
+
 </div>
 </modal>
 
@@ -102,9 +98,39 @@ export default {
   box-shadow: 0 3px 20px rgba(0,0,0,0.9);
 }
 
+.modal-title{
+  text-align: center;
+  position: relative;
+  justify-content: space-between;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 20px;
+  left:100px;
+  bottom:60px;
+  padding-right:200px;
+}
+
+.input{
+  height: 20px;
+  left: 200px;
+  right: 200px;
+  top:250px;
+  position: fixed;
+  width:630px;
+  border: 1px solid #393939;
+  border-radius: 5px 5px 5px 5px;
+  color: #393939;
+  font-size: 12px;
+}
+
 .modal-content{
     display: flex;
     flex-direction:column;
+}
+
+.modal-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 button{
