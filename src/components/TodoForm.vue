@@ -74,20 +74,31 @@ import Modal from './Modal.vue'
 export default {
   components: { Modal },
 
-  setup (props, { emit }) {
+  setup () {
     // const router = useRouter()
-    const modalActive = ref(false)
+  const modalActive = ref(false)
 
-    const toggleModal = () => {
-      modalActive.value = !modalActive.value
-    }
+  const toggleModal = () => {
+    modalActive.value = !modalActive.value
+  }
 
-    return {
-      // router
-      modalActive,
-      toggleModal
+  window.addEventListener('wheel', event => {
+    var direction = event.deltaY > 0 ? '0' : '1'
+    const tabBar = document.querySelector('.scroll')
+
+    if (direction === '0') {
+      tabBar.scrollLeft += 30
+    } else {
+      tabBar.scrollLeft -= 30
     }
-  },
+  })
+
+  return {
+    // router
+    modalActive,
+    toggleModal
+  }
+},
 
   methods: {
 
@@ -223,12 +234,18 @@ box-shadow: 3px 0 3px 0 rgba(0,0,0,0.2);
   display: inline-block;
   text-align: left;
 }
+.contenedor{
+overflow: auto;
+scroll-snap-type: x mandatory;
 
+}
 .scroll{
-  white-space: nowrap;
-  overflow-x: scroll;
-  -webkit-overflow-scrolling: touch;
-  -ms-overflow-style: -ms-autohiding-scrollbar;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scroll-snap-align: start;
+  grid-gap: 5px;
+
 }
 
 .scroll::-webkit-scrollbar{
