@@ -3,7 +3,17 @@
   <div class="logo">MO</div>
 
 <div class="contenedor">
-  <div class="days"> </div>
+  <div class="scroll">
+    <button type="button" class="button-scroll">01 JUN</button>
+    <button type="button" class="button-scroll">02 JUN</button>
+    <button type="button" class="button-scroll">03 JUN</button>
+    <button type="button" class="button-scroll">04 JUN</button>
+    <button type="button" class="button-scroll">05 JUN</button>
+    <button type="button" class="button-scroll">06 JUN</button>
+    <button type="button" class="button-scroll">07 JUN</button>
+    <button type="button" class="button-scroll">08 JUN</button>
+    <button type="button" class="button-scroll">09 JUN</button>
+  </div>
 
   <div class="card">
     <div class="title">TODAY TASKS</div>
@@ -20,33 +30,35 @@
       <h2 class="modal-title">Añada su tarea: </h2>
       <input type="text" class="input">
 
-<fieldset>
-  <legend>Elija una categoría</legend>
+  <div class="modal-body">
+    <fieldset>
+      <legend>Elija una categoría</legend>
 <!--Ocio -->
-<div class="custom-control">
-  <label>
-    <input type="checkbox" name="checkbox-1" class="custom-control-input" value="ocio"/>
-    <i id="ocio" class="fa fa-chess" style="color: red;"></i> Ocio
-  </label>
-</div>
+    <div class="custom-control">
+      <label>
+        <input class="checkbox" type="checkbox" name="checkbox-1" value="ocio"/>
+        <i id="icon" class="fa fa-chess" style="color: #f5365c;"></i> Ocio
+      </label>
+    </div>
 
 <!--Fitness -->
 <div class="custom-control">
   <label>
-    <input type="checkbox" name="checkbox-2" class="custom-control-input" value="fitness"/>
-    <i id="ocio" class="fa fa-baseball-ball" style="color: green;"></i> Fitness
+    <input class="checkbox" type="checkbox" name="checkbox-2" value="fitness"/>
+    <i id="icon" class="fa fa-baseball-ball" style="color: #00c821;"></i> Fitness
   </label>
 </div>
 
 <!--Compras -->
 <div class="custom-control">
   <label>
-    <input type="checkbox" name="checkbox-3" class="custom-control-input" value="compras">
-    <i id="ocio" class="fa fa-coins" style="color: blue;"></i> Compras
+    <input class="checkbox" type="checkbox" name="checkbox-3" value="compras">
+    <i id="icon" class="fa fa-coins" style="color: #0086c0;"></i> Compras
   </label>
 </div>
 
 </fieldset>
+</div>
 
 </div>
 </modal>
@@ -58,12 +70,14 @@
 // import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import Modal from './Modal.vue'
+
 export default {
   components: { Modal },
 
-  setup () {
+  setup (props, { emit }) {
     // const router = useRouter()
     const modalActive = ref(false)
+
     const toggleModal = () => {
       modalActive.value = !modalActive.value
     }
@@ -86,10 +100,12 @@ export default {
 .principal{
   position: relative;
   box-sizing: border-box;
-  height: 100vh;
-  width: 100vw;
+ /* height: 60vh;
+  width: 100vw; */
+  height: auto;
+  width: auto;
   padding: 50px;
-  background: #232023;
+  background: #05021d;
   border-radius: 5%;
 
   margin: 120px auto;
@@ -108,23 +124,54 @@ export default {
   bottom:60px;
   padding-right:200px;
 }
+.modal-body{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 18px;
+  padding: 15px;
+}
 
 .input{
-  height: 20px;
-  left: 200px;
-  right: 200px;
-  top:250px;
-  position: fixed;
-  width:630px;
-  border: 1px solid #393939;
-  border-radius: 5px 5px 5px 5px;
-  color: #393939;
-  font-size: 12px;
+  position: relative;
+  box-sizing: border-box;
+  bottom: 20px;
+}
+
+#icon{
+  width: 30px;
+  text-align: center;
+}
+
+.button-scroll{
+  border-radius: 10px;
+  background-color: #35347caf;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: auto;
+  padding: 20px;
+  width: 100px;
+  cursor: pointer;
+  margin: 10px;
+}
+.button-scroll:hover {
+      background-color: #f4511e;;
+      color: white;
+ }
+
+input:focus {
+  border: 2px solid #000;
+  background: #F3F3F3;
+}
+
+.checkbox{
+box-shadow: 3px 0 3px 0 rgba(0,0,0,0.2);
 }
 
 .modal-content{
     display: flex;
     flex-direction:column;
+    justify-content: flex-start;
+
 }
 
 .modal-header{
@@ -133,7 +180,7 @@ export default {
   justify-content: space-between;
 }
 
-button{
+.addEntryButtom{
   position: absolute;
   right: 0;
   bottom: 0;
@@ -157,7 +204,7 @@ button{
 }
 
 .card {
-  background: #1F2022;
+  background-color: #35347caf;
   border-radius: 18px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 9);
   box-sizing: border-box;
@@ -177,4 +224,14 @@ button{
   text-align: left;
 }
 
+.scroll{
+  white-space: nowrap;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.scroll::-webkit-scrollbar{
+  display: none;
+}
 </style>

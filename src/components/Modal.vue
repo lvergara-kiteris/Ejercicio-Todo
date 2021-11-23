@@ -1,17 +1,18 @@
 <template>
-<transition name="modal-animation">
   <div v-show="modalActive" class="modal">
     <div class="modal-inner">
 
         <!-- Contenido del Modal -->
         <slot />
+<div class="modal-footer">
 
-      <button class="button-guardar" @click="close" type="button">Guardar</button>
-      <button class="button-salir" @click="close" type="button">Salir</button>
+  <button class="button-guardar" @click="close" type="button">Guardar</button>
+  <button class="button-salir"  @click="close" type="button">Salir</button>
+
+</div>
 
     </div>
   </div>
-</transition>
 </template>
 
 <script>
@@ -26,6 +27,7 @@ export default {
         }
     }
 }
+
 </script>
 
 <style scoped>
@@ -39,6 +41,8 @@ export default {
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  box-sizing: content-box;
+  width: 100%;
 }
 
   .modal-inner{
@@ -49,36 +53,7 @@ export default {
     padding: 60px 10px;
     border-radius: 7px;
     box-shadow: 0 3px 20px rgba(0,0,0,0.9);
-    display: inline;
   }
-
-  .button-guardar{
-    background-image: -webkit-linear-gradient(top, #32118f, #4c98c7);
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100px;
-    border: 1px solid blue;
-    box-shadow: 6px 5px 24px #666666;
-    bottom: 30%;
-    left:71%;
-    height:30px;
-    position: absolute;
-  }
-
-.button-salir{
-    background-image: -webkit-linear-gradient(top, #c0c0c0, #ffffff);
-    border-radius: 8px;
-    font-size: 16px;
-    cursor: pointer;
-    width: 100px;
-    border: 1px solid rgb(0, 0, 0);
-    box-shadow: 6px 5px 24px #666666;
-    bottom: 30%;
-    left:60%;
-    height:30px;
-    position: absolute;
-}
 
   .button:hover {
   background: #2079b0;
@@ -86,4 +61,33 @@ export default {
   color: white;
   }
 
+.modal-footer{
+  justify-content: flex-end;
+  border-top: 1px solid #838383;
+  display: flex;
+  padding: 15px;
+  padding-bottom: 1px;
+}
+.button-salir{
+  background-image: -webkit-linear-gradient(top, #c0c0c0, #ffffff);
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100px;
+  border: 1px solid rgb(0, 0, 0);
+  box-shadow: 6px 5px 24px #666666;
+
+  height:30px;
+}
+.button-guardar{
+  background-image: -webkit-linear-gradient(top, #32118f, #4c98c7);
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100px;
+  border: 1px solid blue;
+  box-shadow: 6px 5px 24px #666666;
+
+  height:30px;
+}
 </style>
