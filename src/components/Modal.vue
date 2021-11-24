@@ -7,7 +7,7 @@
 <div class="modal-footer">
 
   <button class="button-salir"  @click="close" type="button">Salir</button>
-  <button class="button-guardar" @click="close" type="button">Guardar</button>
+  <button class="button-guardar" @click="close" type="submit">Guardar</button>
 
 </div>
 

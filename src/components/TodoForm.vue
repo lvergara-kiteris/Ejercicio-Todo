@@ -2,21 +2,28 @@
   <div class="principal">
   <div class="logo">MO</div>
   <br>
-<div class="contenedor">
-  <div class="scroll">
-    <button type="button" class="button-scroll">JUN 01</button>
-    <button if="boton" type="button" class="button-scroll">JUN 02</button>
-    <button type="button" class="button-scroll">JUN 03</button>
-    <button type="button" class="button-scroll">JUN 04</button>
-    <button type="button" class="button-scroll">JUN 05</button>
-    <button type="button" class="button-scroll">JUN 06</button>
-    <button type="button" class="button-scroll">JUN 07</button>
-    <button type="button" class="button-scroll">JUN 08</button>
-    <button type="button" class="button-scroll">JUN 09</button>
-  </div>
+  <div class="contenedor">
+    <div class="scroll">
+      <button type="button" class="button-scroll">JUN 01</button>
+      <button if="boton" type="button" class="button-scroll">JUN 02</button>
+      <button type="button" class="button-scroll">JUN 03</button>
+      <button type="button" class="button-scroll">JUN 04</button>
+      <button type="button" class="button-scroll">JUN 05</button>
+      <button type="button" class="button-scroll">JUN 06</button>
+      <button type="button" class="button-scroll">JUN 07</button>
+      <button type="button" class="button-scroll">JUN 08</button>
+      <button type="button" class="button-scroll">JUN 09</button>
+    </div>
 
   <div class="card">
     <div class="title">TODAY TASKS</div>
+    <div>
+      <ul>
+        <li v-for="todo in getTodos" :key="todo.id">
+          {{ todo.text }}
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
 
@@ -24,90 +31,76 @@
     <i class="fa fa-2x fa-plus"></i>
   </button>
 
+<!-- Modal -->
 <modal @close="toggleModal" :modalActive="modalActive">
+<form  @submit.prevent="createTodo(newTodoText)">
   <div class="modal-content">
-
       <h2 class="modal-title">Añada una nueva tarea: </h2>
 
       <label class="label-titulo">Título</label>
       <input type="text" class="input">
 
       <label class="label-descripcion">Descripción</label>
-      <textarea class="textarea"></textarea>
+      <textarea class="textarea" v-model="newTodoText"></textarea>
 
   <div class="modal-body">
     <fieldset>
       <legend class="legend">Elija una categoría</legend>
 <!--Ocio -->
-    <div class="custom-control">
-      <label>
-        <input class="checkbox" type="checkbox" name="checkbox-1" value="ocio"/>
-        <i id="icon" class="fa fa-chess" style="color: #f5365c;"></i> Ocio
-      </label>
-    </div>
+      <div class="custom-control">
+        <label>
+          <input class="checkbox" type="checkbox" name="checkbox-1" value="ocio"/>
+          <i id="icon" class="fa fa-chess" style="color: #f5365c;"></i> Ocio
+        </label>
+      </div>
 
 <!--Fitness -->
-<div class="custom-control">
-  <label>
-    <input class="checkbox" type="checkbox" name="checkbox-2" value="fitness"/>
-    <i id="icon" class="fa fa-baseball-ball" style="color: #00c821;"></i> Fitness
-  </label>
-</div>
+      <div class="custom-control">
+        <label>
+          <input class="checkbox" type="checkbox" name="checkbox-2" value="fitness"/>
+          <i id="icon" class="fa fa-baseball-ball" style="color: #00c821;"></i> Fitness
+        </label>
+      </div>
 
 <!--Compras -->
-<div class="custom-control">
-  <label>
-    <input class="checkbox" type="checkbox" name="checkbox-3" value="compras">
-    <i id="icon" class="fa fa-coins" style="color: #0086c0;"></i> Compras
-  </label>
-</div>
+      <div class="custom-control">
+        <label>
+          <input class="checkbox" type="checkbox" name="checkbox-3" value="compras">
+          <i id="icon" class="fa fa-coins" style="color: #0086c0;"></i> Compras
+        </label>
+      </div>
 
-</fieldset>
-</div>
+    </fieldset>
+    </div>
+  </div>
 
-</div>
+  <button class="button-guardar" type="submit" @click="close"> crear </button>
+  </form>
 </modal>
 
-</div>
+  </div>
 </template>
 
 <script>
-// import { useRouter } from 'vue-router'
 import { ref } from 'vue'
+import useTodos from '../composables/useTodos'
 import Modal from './Modal.vue'
 
 export default {
   components: { Modal },
 
   setup () {
-    // const router = useRouter()
-  const modalActive = ref(false)
+    const { modalActive, toggleModal, getTodos, createTodo } = useTodos()
 
-  const toggleModal = () => {
-    modalActive.value = !modalActive.value
-  }
+    return {
+      modalActive,
+      toggleModal,
+      getTodos,
+      createTodo,
 
-  window.addEventListener('wheel', event => {
-    var direction = event.deltaY > 0 ? '0' : '1'
-    const tabBar = document.querySelector('.scroll')
-
-    if (direction === '0') {
-      tabBar.scrollLeft += 30
-    } else {
-      tabBar.scrollLeft -= 30
+      newTodoText: ref('')
     }
-  })
-
-  return {
-    // router
-    modalActive,
-    toggleModal
-  }
-},
-
-  methods: {
-
-  }
+}
 }
 </script>
 
@@ -251,8 +244,9 @@ box-shadow: 3px 0 3px 0 rgba(0,0,0,0.2);
   margin: 120px auto;
   max-width: 400px;
   padding: 25px;
-  text-align: center;
   width: 100%;
+  position: relative;
+  bottom: 95px;
 }
 
 .custom-control-label{
@@ -278,5 +272,18 @@ box-shadow: 3px 0 3px 0 rgba(0,0,0,0.2);
 
 .scroll::-webkit-scrollbar{
   display: none;
+}
+
+.button-guardar{
+  background-image: -webkit-linear-gradient(top, #32118f, #4c98c7);
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100px;
+  border: 1px solid blue;
+  box-shadow: 6px 5px 24px #666666;
+  bottom: -5px;
+  position: relative;
+  height:30px;
 }
 </style>
