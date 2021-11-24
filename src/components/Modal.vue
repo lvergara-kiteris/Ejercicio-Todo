@@ -6,8 +6,8 @@
         <slot />
 <div class="modal-footer">
 
-  <button class="button-guardar" @click="close" type="button">Guardar</button>
   <button class="button-salir"  @click="close" type="button">Salir</button>
+  <button class="button-guardar" @click="close" type="button">Guardar</button>
 
 </div>
 
@@ -67,6 +67,8 @@ export default {
   display: flex;
   padding: 15px;
   padding-bottom: 1px;
+    bottom: -20px;
+  position: relative;
 }
 .button-salir{
   background-image: -webkit-linear-gradient(top, #c0c0c0, #ffffff);
@@ -76,7 +78,8 @@ export default {
   width: 100px;
   border: 1px solid rgb(0, 0, 0);
   box-shadow: 6px 5px 24px #666666;
-
+  bottom: -5px;
+  position: relative;
   height:30px;
 }
 .button-guardar{
@@ -87,7 +90,8 @@ export default {
   width: 100px;
   border: 1px solid blue;
   box-shadow: 6px 5px 24px #666666;
-
+  bottom: -5px;
+  position: relative;
   height:30px;
 }
 </style>

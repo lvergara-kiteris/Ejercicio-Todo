@@ -1,18 +1,18 @@
 <template>
   <div class="principal">
   <div class="logo">MO</div>
-
+  <br>
 <div class="contenedor">
   <div class="scroll">
-    <button type="button" class="button-scroll">01 JUN</button>
-    <button type="button" class="button-scroll">02 JUN</button>
-    <button type="button" class="button-scroll">03 JUN</button>
-    <button type="button" class="button-scroll">04 JUN</button>
-    <button type="button" class="button-scroll">05 JUN</button>
-    <button type="button" class="button-scroll">06 JUN</button>
-    <button type="button" class="button-scroll">07 JUN</button>
-    <button type="button" class="button-scroll">08 JUN</button>
-    <button type="button" class="button-scroll">09 JUN</button>
+    <button type="button" class="button-scroll">JUN 01</button>
+    <button if="boton" type="button" class="button-scroll">JUN 02</button>
+    <button type="button" class="button-scroll">JUN 03</button>
+    <button type="button" class="button-scroll">JUN 04</button>
+    <button type="button" class="button-scroll">JUN 05</button>
+    <button type="button" class="button-scroll">JUN 06</button>
+    <button type="button" class="button-scroll">JUN 07</button>
+    <button type="button" class="button-scroll">JUN 08</button>
+    <button type="button" class="button-scroll">JUN 09</button>
   </div>
 
   <div class="card">
@@ -27,12 +27,17 @@
 <modal @close="toggleModal" :modalActive="modalActive">
   <div class="modal-content">
 
-      <h2 class="modal-title">Añada su tarea: </h2>
+      <h2 class="modal-title">Añada una nueva tarea: </h2>
+
+      <label class="label-titulo">Título</label>
       <input type="text" class="input">
+
+      <label class="label-descripcion">Descripción</label>
+      <textarea class="textarea"></textarea>
 
   <div class="modal-body">
     <fieldset>
-      <legend>Elija una categoría</legend>
+      <legend class="legend">Elija una categoría</legend>
 <!--Ocio -->
     <div class="custom-control">
       <label>
@@ -128,25 +133,44 @@ export default {
 .modal-title{
   text-align: center;
   position: relative;
-  justify-content: space-between;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 20px;
-  left:100px;
-  bottom:60px;
-  padding-right:200px;
-}
-.modal-body{
   font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
+  border-bottom: 1px solid #a3a3a3;
+  bottom:60px;
+  background-color: rgb(236, 236, 236);
   padding: 15px;
 }
+.modal-body{
+  position: relative;
+  bottom: 25px;
+  width:auto;
+}
 
+.label-titulo{
+  position: relative;
+  bottom: 55px;
+  font-weight: bold;
+}
 .input{
   position: relative;
   box-sizing: border-box;
-  bottom: 20px;
+  bottom: 50px;
+}
+.label-descripcion{
+  position: relative;
+  bottom: 40px;
+  font-weight: bold;
+}
+.textarea{
+  position: relative;
+  bottom: 35px;
+  width:auto;
+  height:100px;
 }
 
+.legend{
+font-weight: bold;
+}
 #icon{
   width: 30px;
   text-align: center;
@@ -154,7 +178,7 @@ export default {
 
 .button-scroll{
   border-radius: 10px;
-  background-color: #35347caf;
+  background-color: hsla(240, 6%, 93%, 0.212);
   border: none;
   color: #FFFFFF;
   text-align: center;
@@ -181,8 +205,6 @@ box-shadow: 3px 0 3px 0 rgba(0,0,0,0.2);
 .modal-content{
     display: flex;
     flex-direction:column;
-    justify-content: flex-start;
-
 }
 
 .modal-header{
@@ -192,12 +214,14 @@ box-shadow: 3px 0 3px 0 rgba(0,0,0,0.2);
 }
 
 .addEntryButtom{
-  position: absolute;
-  right: 0;
-  bottom: 0;
+  background-color: #6287ec;;
   border-radius: 100%;
-  width: 60px;
-  height: 60px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  position: relative;
+  bottom: 1px;
+  left: 310px;
 }
 
 .logo{
@@ -207,15 +231,20 @@ box-shadow: 3px 0 3px 0 rgba(0,0,0,0.2);
   font-weight: bold;
 }
 
+.fa{
+  color: white;
+  font-size: 20px;
+}
 .title{
   color: #fff;
   text-align: left;
-  font-size: 25px;
+  font-size: 20px;
+  font-weight: bold;
   font-family: 'Courier New', Courier, monospace;
 }
-
+/*  background-color: #35347caf;*/
 .card {
-  background-color: #35347caf;
+  background-color: hsla(240, 6%, 93%, 0.212);
   border-radius: 18px;
   box-shadow: 5px 5px 15px rgba(0, 0, 0, 9);
   box-sizing: border-box;
@@ -235,10 +264,9 @@ box-shadow: 3px 0 3px 0 rgba(0,0,0,0.2);
   text-align: left;
 }
 .contenedor{
-overflow: auto;
-scroll-snap-type: x mandatory;
-
+  scroll-snap-type: x mandatory;
 }
+
 .scroll{
   display: flex;
   flex-wrap: nowrap;
