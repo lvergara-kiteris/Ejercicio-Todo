@@ -15,11 +15,12 @@ export default createStore({
   },
 
   mutations: {
-    createTodo (state, { title = '', text = '' }) {
+    createTodo (state, { title = '', text = '', category = '' }) {
       state.allTodos.unshift({
         id: uuidv4(),
         title,
-        text
+        text,
+        category
 
       })
     }

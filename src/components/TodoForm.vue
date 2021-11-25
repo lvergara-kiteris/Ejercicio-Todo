@@ -17,15 +17,19 @@
 
       <div class="card">
         <div class="title">TODAY TASKS</div>
+<span class = "category">{{selectCategory}}</span>
+
         <section class="timeline">
           <ul class="ul-class">
             <li class="li-class" v-for="todo in getTodos" :key="todo.id">
               <div>
+
               <time>{{ todo.title}}</time>
               <br>
-              {{ todo.text }}
+                    {{ todo.text }}
               </div>
             </li>
+
           </ul>
         </section>
       </div>
@@ -50,39 +54,21 @@
     </template>
 
     <template v-slot:body>
-      <form @submit.prevent = "createTodo(newTodoTitle, newTodoText); isOpen = false">
+      <form @submit.prevent = "createTodo(newTodoTitle, newTodoText, selectCategory); isOpen = false">
         <div class="modal-body">
-          <fieldset>
-            <legend class="legend">Elija una categoría</legend>
-            <!--Ocio -->
-            <div class="custom-control">
-              <label>
-                <input class="checkbox" type="checkbox" name="checkbox-1" value="ocio"/>
-                <i id="icon" class="fa fa-chess" style="color: #f5365c"></i>
-                Ocio
-              </label>
-            </div>
+          <span class="selectCat">Seleccione una categoría:</span>
+          <br>
 
-            <!--Fitness -->
-            <div class="custom-control">
-              <label>
-                <input class="checkbox" type="checkbox" name="checkbox-2" value="fitness"/>
-                <i id="icon" class="fa fa-baseball-ball" style="color: #00c821"></i>
-                Fitness
-              </label>
-            </div>
+          <div class="content-select">
+          <select v-model="selectCategory">
+            <option>Compras</option>
+            <option>Fitness</option>
+            <option>Ocio</option>
+          </select>
+          </div>
 
-            <!--Compras -->
-            <div class="custom-control">
-              <label>
-                <input class="checkbox" type="checkbox" name="checkbox-3" value="compras"/>
-                <i id="icon" class="fa fa-coins" style="color: #0086c0"></i>
-                Compras
-              </label>
-            </div>
-          </fieldset>
         </div>
-        <button type="submit" class="button-crear">crear</button>
+        <button type="submit" class="button-crear">Crear</button>
       </form>
     </template>
   </modal>
@@ -107,7 +93,8 @@ export default {
 
       isOpen: ref(false),
       newTodoTitle: ref(''),
-      newTodoText: ref('')
+      newTodoText: ref(''),
+      selectCategory: ref('')
     }
   }
 }
@@ -157,6 +144,7 @@ export default {
   position: relative;
   box-sizing: border-box;
   bottom: 50px;
+  font-size: 13px;
 }
 .label-descripcion {
   position: relative;
@@ -168,6 +156,7 @@ export default {
   bottom: 35px;
   width: auto;
   height: 100px;
+  font-size: 13px;
 }
 
 .legend {
@@ -240,9 +229,12 @@ input:focus {
 .title {
   color: #fff;
   text-align: left;
+  position: relative;
+  left:15px;
   font-size: 20px;
   font-weight: bold;
   font-family: "Courier New", Courier, monospace;
+  margin-bottom: 20px;
 }
 /*  background-color: #35347caf;*/
 .card {
@@ -252,7 +244,7 @@ input:focus {
   box-sizing: border-box;
   margin: 120px auto;
   max-width: 400px;
-  padding: 25px;
+  padding: 15px;
   width: 100%;
   position: relative;
   bottom: 95px;
@@ -282,7 +274,7 @@ input:focus {
 }
 
 .button-crear {
-  background-image: -webkit-linear-gradient(top, #32118f, #4c98c7);
+  background-image: -webkit-linear-gradient(top, #401aa8, #4c98c7);
   border-radius: 8px;
   font-size: 16px;
   cursor: pointer;
@@ -298,26 +290,34 @@ input:focus {
 ul li{
   color: rgba(255, 255, 255, 0.781);
 }
-/*
-.timeline ul li {
-  list-style-type: none;
-  position: relative;
-  width: 2px;
-  background: #fff;
-}
 
-.timeline ul li::after {
-  content: '';
-  position: absolute;
-
-  bottom: 0;
-  transform: translateX(-50%);
-  width: 15px;
-  height: 15px;
-  border-radius: 50%;
-  background: inherit;
+.selectCat {
+  font-weight: bold;
 }
-*/
+.content-select{
+position: relative;
+bottom: -5px;
+}
+.content-select select{
+appearance: none;
+display: inline-block;
+width: 100%;
+cursor: pointer;
+padding: 2px 10px;
+outline: 0;
+background: #f0f0f0;
+font-size: 15px;
+color: rgb(0, 0, 0);
+border:2px solid rgba(0,0,0,0.2);
+border-radius: 8px;
+position: relative;
+}
+.content-select select:hover{
+background: #f5f5f5;
+}
+.content-select:hover{
+margin-top: 15px;
+}
 
 .timeline {
   padding-left: 1px;
@@ -338,7 +338,7 @@ ul li{
   left: 20px;
   width: 52px;
   height: 100%;
-  border-left: 2px solid rgba(204, 204, 204, 0.616);
+  border-left: 2px solid hsla(240, 6%, 93%, 0.212);
 }
 
 .li-class{
@@ -364,9 +364,14 @@ ul li{
   left: -32px;
   width: 12px;
   height: 12px;
-  border: 2px solid rgb(128, 128, 128);
+  border: 2px solid hsl(0, 0%, 62%);
   border-radius: 50%;
-  background-color: rgb(128, 128, 128);
+  background-color: hsl(0, 0%, 62%);
 }
 
+.category{
+  color: white;
+  margin-left: 55px;
+  font-size: 17px;
+}
 </style>
