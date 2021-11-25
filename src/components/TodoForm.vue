@@ -17,13 +17,17 @@
 
       <div class="card">
         <div class="title">TODAY TASKS</div>
-        <div>
-          <ul>
-            <li v-for="todo in getTodos" :key="todo.id">
+        <section class="timeline">
+          <ul class="ul-class">
+            <li class="li-class" v-for="todo in getTodos" :key="todo.id">
+              <div>
+              <time>{{ todo.title}}</time>
+              <br>
               {{ todo.text }}
+              </div>
             </li>
           </ul>
-        </div>
+        </section>
       </div>
     </div>
 
@@ -38,7 +42,7 @@
       <div class="modal-content">
         <h2 class="modal-title">Añada una nueva tarea:</h2>
         <label class="label-titulo">Título</label>
-        <input type="text" class="input" />
+        <input type="text" class="input" v-model="newTodoTitle"/>
 
         <label class="label-descripcion">Descripción</label>
         <textarea class="textarea" v-model="newTodoText"></textarea>
@@ -46,7 +50,7 @@
     </template>
 
     <template v-slot:body>
-      <form @submit.prevent = "createTodo(newTodoText); isOpen = false;">
+      <form @submit.prevent = "createTodo(newTodoTitle, newTodoText); isOpen = false">
         <div class="modal-body">
           <fieldset>
             <legend class="legend">Elija una categoría</legend>
@@ -102,6 +106,7 @@ export default {
       createTodo,
 
       isOpen: ref(false),
+      newTodoTitle: ref(''),
       newTodoText: ref('')
     }
   }
@@ -109,6 +114,7 @@ export default {
 </script>
 
 <style scoped>
+
 .principal {
   position: relative;
   box-sizing: border-box;
@@ -288,4 +294,79 @@ input:focus {
   height: 30px;
   left: 535px;
 }
+
+ul li{
+  color: rgba(255, 255, 255, 0.781);
+}
+/*
+.timeline ul li {
+  list-style-type: none;
+  position: relative;
+  width: 2px;
+  background: #fff;
+}
+
+.timeline ul li::after {
+  content: '';
+  position: absolute;
+
+  bottom: 0;
+  transform: translateX(-50%);
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: inherit;
+}
+*/
+
+.timeline {
+  padding-left: 1px;
+  font-size: 12px;
+  font-family: 'Helvetica';
+}
+.ul-class {
+  position: relative;
+  padding-left: 45px;
+  list-style: none;
+
+}
+.ul-class::before {
+  display: inline-block;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 20px;
+  width: 52px;
+  height: 100%;
+  border-left: 2px solid rgba(204, 204, 204, 0.616);
+}
+
+.li-class{
+  position: relative;
+  counter-increment: list;
+}
+.li-class:not(:last-child) {
+  padding-bottom: 20px;
+}
+.li-class::before {
+  display: inline-block;
+  content: '';
+  position: absolute;
+  left: 2px;
+  height: 100%;
+  width: 10px;
+}
+.li-class::after {
+  display: inline-block;
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -32px;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgb(128, 128, 128);
+  border-radius: 50%;
+  background-color: rgb(128, 128, 128);
+}
+
 </style>

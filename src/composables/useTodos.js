@@ -1,15 +1,10 @@
 // import { useRouter } from 'vue-router'
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { useStore } from 'vuex'
 
 const useTodos = () => {
   // const router = useRouter()
-  const modalActive = ref(false)
   const store = useStore()
-
-  const toggleModal = () => {
-  modalActive.value = !modalActive.value
-  }
 
   window.addEventListener('wheel', event => {
   var direction = event.deltaY > 0 ? '0' : '1'
@@ -24,11 +19,8 @@ const useTodos = () => {
 
   return {
     // router
-    modalActive,
-    toggleModal,
-
     // Methods
-    createTodo: (text) => store.commit('createTodo', text),
+    createTodo: (title, text) => store.commit('createTodo', { title, text }),
     getTodos: computed(() => store.getters.getTodos)
   }
 }

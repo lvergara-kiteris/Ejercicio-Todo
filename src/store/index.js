@@ -3,9 +3,8 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    newTodo: '',
     allTodos: [
-      { id: '1', titulo: 'compras', text: 'feesfff', categoria: '' }
+
     ],
     alltitles: [],
     allTags: [
@@ -16,13 +15,12 @@ export default createStore({
   },
 
   mutations: {
-
-    createTodo (state, text = '') {
-      if (text.length <= 1) return
-
-      state.allTodos.push({
+    createTodo (state, { title = '', text = '' }) {
+      state.allTodos.unshift({
         id: uuidv4(),
+        title,
         text
+
       })
     }
   },
