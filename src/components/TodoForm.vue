@@ -1,84 +1,87 @@
 <template>
   <div class="principal">
-  <div class="logo">MO</div>
-  <br>
-  <div class="contenedor">
-    <div class="scroll">
-      <button type="button" class="button-scroll">JUN 01</button>
-      <button if="boton" type="button" class="button-scroll">JUN 02</button>
-      <button type="button" class="button-scroll">JUN 03</button>
-      <button type="button" class="button-scroll">JUN 04</button>
-      <button type="button" class="button-scroll">JUN 05</button>
-      <button type="button" class="button-scroll">JUN 06</button>
-      <button type="button" class="button-scroll">JUN 07</button>
-      <button type="button" class="button-scroll">JUN 08</button>
-      <button type="button" class="button-scroll">JUN 09</button>
-    </div>
-
-  <div class="card">
-    <div class="title">TODAY TASKS</div>
-    <div>
-      <ul>
-        <li v-for="todo in getTodos" :key="todo.id">
-          {{ todo.text }}
-        </li>
-      </ul>
-    </div>
-  </div>
-</div>
-
-  <button class="addEntryButtom" @click.prevent="toggleModal">
-    <i class="fa fa-2x fa-plus"></i>
-  </button>
-
-<!-- Modal -->
-<modal @close="toggleModal" :modalActive="modalActive">
-<form  @submit.prevent="createTodo(newTodoText)">
-  <div class="modal-content">
-      <h2 class="modal-title">Añada una nueva tarea: </h2>
-
-      <label class="label-titulo">Título</label>
-      <input type="text" class="input">
-
-      <label class="label-descripcion">Descripción</label>
-      <textarea class="textarea" v-model="newTodoText"></textarea>
-
-  <div class="modal-body">
-    <fieldset>
-      <legend class="legend">Elija una categoría</legend>
-<!--Ocio -->
-      <div class="custom-control">
-        <label>
-          <input class="checkbox" type="checkbox" name="checkbox-1" value="ocio"/>
-          <i id="icon" class="fa fa-chess" style="color: #f5365c;"></i> Ocio
-        </label>
+    <div class="logo">MO</div>
+    <br />
+    <div class="contenedor">
+      <div class="scroll">
+        <button type="button" class="button-scroll">JUN 01</button>
+        <button type="button" class="button-scroll">JUN 02</button>
+        <button type="button" class="button-scroll">JUN 03</button>
+        <button type="button" class="button-scroll">JUN 04</button>
+        <button type="button" class="button-scroll">JUN 05</button>
+        <button type="button" class="button-scroll">JUN 06</button>
+        <button type="button" class="button-scroll">JUN 07</button>
+        <button type="button" class="button-scroll">JUN 08</button>
+        <button type="button" class="button-scroll">JUN 09</button>
       </div>
 
-<!--Fitness -->
-      <div class="custom-control">
-        <label>
-          <input class="checkbox" type="checkbox" name="checkbox-2" value="fitness"/>
-          <i id="icon" class="fa fa-baseball-ball" style="color: #00c821;"></i> Fitness
-        </label>
+      <div class="card">
+        <div class="title">TODAY TASKS</div>
+        <div>
+          <ul>
+            <li v-for="todo in getTodos" :key="todo.id">
+              {{ todo.text }}
+            </li>
+          </ul>
+        </div>
       </div>
-
-<!--Compras -->
-      <div class="custom-control">
-        <label>
-          <input class="checkbox" type="checkbox" name="checkbox-3" value="compras">
-          <i id="icon" class="fa fa-coins" style="color: #0086c0;"></i> Compras
-        </label>
-      </div>
-
-    </fieldset>
     </div>
+
+    <button class="addEntryButtom" @click="isOpen = true">
+      <i class="fa fa-2x fa-plus"></i>
+    </button>
   </div>
 
-  <button class="button-guardar" type="submit" @click="close"> crear </button>
-  </form>
-</modal>
+  <!-- Modal -->
+  <modal v-if="isOpen" @on:close="isOpen = false">
+    <template v-slot:header>
+      <div class="modal-content">
+        <h2 class="modal-title">Añada una nueva tarea:</h2>
+        <label class="label-titulo">Título</label>
+        <input type="text" class="input" />
 
-  </div>
+        <label class="label-descripcion">Descripción</label>
+        <textarea class="textarea" v-model="newTodoText"></textarea>
+      </div>
+    </template>
+
+    <template v-slot:body>
+      <form @submit.prevent = "createTodo(newTodoText); isOpen = false;">
+        <div class="modal-body">
+          <fieldset>
+            <legend class="legend">Elija una categoría</legend>
+            <!--Ocio -->
+            <div class="custom-control">
+              <label>
+                <input class="checkbox" type="checkbox" name="checkbox-1" value="ocio"/>
+                <i id="icon" class="fa fa-chess" style="color: #f5365c"></i>
+                Ocio
+              </label>
+            </div>
+
+            <!--Fitness -->
+            <div class="custom-control">
+              <label>
+                <input class="checkbox" type="checkbox" name="checkbox-2" value="fitness"/>
+                <i id="icon" class="fa fa-baseball-ball" style="color: #00c821"></i>
+                Fitness
+              </label>
+            </div>
+
+            <!--Compras -->
+            <div class="custom-control">
+              <label>
+                <input class="checkbox" type="checkbox" name="checkbox-3" value="compras"/>
+                <i id="icon" class="fa fa-coins" style="color: #0086c0"></i>
+                Compras
+              </label>
+            </div>
+          </fieldset>
+        </div>
+        <button type="submit" class="button-crear">crear</button>
+      </form>
+    </template>
+  </modal>
 </template>
 
 <script>
@@ -98,18 +101,18 @@ export default {
       getTodos,
       createTodo,
 
+      isOpen: ref(false),
       newTodoText: ref('')
     }
-}
+  }
 }
 </script>
 
 <style scoped>
-
-.principal{
+.principal {
   position: relative;
   box-sizing: border-box;
- /* height: 60vh;
+  /* height: 60vh;
   width: 100vw; */
   height: auto;
   width: auto;
@@ -120,60 +123,60 @@ export default {
   margin: 120px auto;
   max-width: 400px;
   padding: 25px;
-  box-shadow: 0 3px 20px rgba(0,0,0,0.9);
+  box-shadow: 0 3px 20px rgba(0, 0, 0, 0.9);
 }
 
-.modal-title{
+.modal-title {
   text-align: center;
   position: relative;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
   border-bottom: 1px solid #a3a3a3;
-  bottom:60px;
+  bottom: 60px;
   background-color: rgb(236, 236, 236);
   padding: 15px;
 }
-.modal-body{
+.modal-body {
   position: relative;
   bottom: 25px;
-  width:auto;
+  width: auto;
 }
 
-.label-titulo{
+.label-titulo {
   position: relative;
   bottom: 55px;
   font-weight: bold;
 }
-.input{
+.input {
   position: relative;
   box-sizing: border-box;
   bottom: 50px;
 }
-.label-descripcion{
+.label-descripcion {
   position: relative;
   bottom: 40px;
   font-weight: bold;
 }
-.textarea{
+.textarea {
   position: relative;
   bottom: 35px;
-  width:auto;
-  height:100px;
+  width: auto;
+  height: 100px;
 }
 
-.legend{
-font-weight: bold;
+.legend {
+  font-weight: bold;
 }
-#icon{
+#icon {
   width: 30px;
   text-align: center;
 }
 
-.button-scroll{
+.button-scroll {
   border-radius: 10px;
   background-color: hsla(240, 6%, 93%, 0.212);
   border: none;
-  color: #FFFFFF;
+  color: #ffffff;
   text-align: center;
   font-size: auto;
   padding: 20px;
@@ -182,32 +185,32 @@ font-weight: bold;
   margin: 10px;
 }
 .button-scroll:hover {
-      background-color: #f4511e;;
-      color: white;
- }
+  background-color: #f4511e;
+  color: white;
+}
 
 input:focus {
   border: 2px solid #000;
-  background: #F3F3F3;
+  background: #f3f3f3;
 }
 
-.checkbox{
-box-shadow: 3px 0 3px 0 rgba(0,0,0,0.2);
+.checkbox {
+  box-shadow: 3px 0 3px 0 rgba(0, 0, 0, 0.2);
 }
 
-.modal-content{
-    display: flex;
-    flex-direction:column;
+.modal-content {
+  display: flex;
+  flex-direction: column;
 }
 
-.modal-header{
+.modal-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.addEntryButtom{
-  background-color: #6287ec;;
+.addEntryButtom {
+  background-color: #6287ec;
   border-radius: 100%;
   width: 50px;
   height: 50px;
@@ -217,23 +220,23 @@ box-shadow: 3px 0 3px 0 rgba(0,0,0,0.2);
   left: 310px;
 }
 
-.logo{
+.logo {
   text-align: left;
   color: white;
   font-size: 35px;
   font-weight: bold;
 }
 
-.fa{
+.fa {
   color: white;
   font-size: 20px;
 }
-.title{
+.title {
   color: #fff;
   text-align: left;
   font-size: 20px;
   font-weight: bold;
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Courier New", Courier, monospace;
 }
 /*  background-color: #35347caf;*/
 .card {
@@ -249,32 +252,30 @@ box-shadow: 3px 0 3px 0 rgba(0,0,0,0.2);
   bottom: 95px;
 }
 
-.custom-control-label{
+.custom-control-label {
   width: 100px;
-
 }
-.ocio{
+.ocio {
   display: inline-block;
   text-align: left;
 }
-.contenedor{
+.contenedor {
   scroll-snap-type: x mandatory;
 }
 
-.scroll{
+.scroll {
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
   scroll-snap-align: start;
   grid-gap: 5px;
-
 }
 
-.scroll::-webkit-scrollbar{
+.scroll::-webkit-scrollbar {
   display: none;
 }
 
-.button-guardar{
+.button-crear {
   background-image: -webkit-linear-gradient(top, #32118f, #4c98c7);
   border-radius: 8px;
   font-size: 16px;
@@ -284,6 +285,7 @@ box-shadow: 3px 0 3px 0 rgba(0,0,0,0.2);
   box-shadow: 6px 5px 24px #666666;
   bottom: -5px;
   position: relative;
-  height:30px;
+  height: 30px;
+  left: 535px;
 }
 </style>
