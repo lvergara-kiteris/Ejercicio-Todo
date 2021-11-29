@@ -3,25 +3,20 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    allTodos: [
-
-    ],
+    allTodos: [],
     alltitles: [],
-    allTags: [
-      { name: 'Gym' },
-      { name: 'Ocio' },
-      { name: 'Compras' }
-    ]
+    allTags: []
   },
 
   mutations: {
-    createTodo (state, { title = '', text = '', category = '' }) {
+    createTodo (state, { title = '', text = '', init = '', finish = '', category = '' }) {
       state.allTodos.unshift({
         id: uuidv4(),
         title,
         text,
+        init,
+        finish,
         category
-
       })
     }
   },

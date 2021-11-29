@@ -1,6 +1,10 @@
 <template>
   <div class="principal">
     <div class="logo">MO</div>
+    <div>
+     <!-- <input type="date"> -->
+
+    </div>
     <br />
     <div class="contenedor">
       <div class="scroll">
@@ -17,19 +21,22 @@
 
       <div class="card">
         <div class="title">TODAY TASKS</div>
-<span class = "category">{{selectCategory}}</span>
+        <br>
+        <span class = "category">{{selectCategory}}</span>
 
         <section class="timeline">
           <ul class="ul-class">
             <li class="li-class" v-for="todo in getTodos" :key="todo.id">
               <div>
-
-              <time>{{ todo.title}}</time>
+              {{ todo.title}}
+              <span class="hInit">{{todo.init}} - </span>
+              <span class="hFinish">{{todo.finish}}</span>
               <br>
-                    {{ todo.text }}
+              {{ todo.text }}
+              <br>
+
               </div>
             </li>
-
           </ul>
         </section>
       </div>
@@ -54,20 +61,32 @@
     </template>
 
     <template v-slot:body>
-      <form @submit.prevent = "createTodo(newTodoTitle, newTodoText, selectCategory); isOpen = false">
+      <form @submit.prevent = "createTodo(newTodoTitle, newTodoText, newTodoTimeInit, newTodoTimeFinish, selectCategory); isOpen = false">
+
         <div class="modal-body">
+
+            <label class="label-horaInicio">Hora inicio:</label>
+            <input class="init" type="time" v-model="newTodoTimeInit"/>
+            <br>
+            <label class="label-horaFin">Hora Fin:</label>
+            <input class="finish" type="time" v-model="newTodoTimeFinish"/>
+
+        <br>
           <span class="selectCat">Seleccione una categoría:</span>
           <br>
 
           <div class="content-select">
           <select v-model="selectCategory">
+            <option disabled value = "">Seleccione un elemento</option>
             <option>Compras</option>
             <option>Fitness</option>
             <option>Ocio</option>
           </select>
           </div>
 
+ <!-- <datepicker v-model="date1" :format="customFormat" type="date"></datepicker> -->
         </div>
+
         <button type="submit" class="button-crear">Crear</button>
       </form>
     </template>
@@ -78,8 +97,10 @@
 import { ref } from 'vue'
 import useTodos from '../composables/useTodos'
 import Modal from './Modal.vue'
+// import Datepicker from 'vue3-date-time-picker'
 
 export default {
+  // a parte de modal, Datepicker
   components: { Modal },
 
   setup () {
@@ -94,6 +115,8 @@ export default {
       isOpen: ref(false),
       newTodoTitle: ref(''),
       newTodoText: ref(''),
+      newTodoTimeInit: ref(''),
+      newTodoTimeFinish: ref(''),
       selectCategory: ref('')
     }
   }
@@ -293,6 +316,8 @@ ul li{
 
 .selectCat {
   font-weight: bold;
+  top: 10px;
+  position: relative;
 }
 .content-select{
 position: relative;
@@ -311,6 +336,7 @@ color: rgb(0, 0, 0);
 border:2px solid rgba(0,0,0,0.2);
 border-radius: 8px;
 position: relative;
+top: 10px;
 }
 .content-select select:hover{
 background: #f5f5f5;
@@ -324,11 +350,11 @@ margin-top: 15px;
   font-size: 12px;
   font-family: 'Helvetica';
 }
+
 .ul-class {
   position: relative;
   padding-left: 45px;
   list-style: none;
-
 }
 .ul-class::before {
   display: inline-block;
@@ -340,7 +366,6 @@ margin-top: 15px;
   height: 100%;
   border-left: 2px solid hsla(240, 6%, 93%, 0.212);
 }
-
 .li-class{
   position: relative;
   counter-increment: list;
@@ -368,10 +393,39 @@ margin-top: 15px;
   border-radius: 50%;
   background-color: hsl(0, 0%, 62%);
 }
-
 .category{
   color: white;
   margin-left: 55px;
   font-size: 17px;
 }
+
+.label-horaInicio{
+  font-weight: bold;
+}
+.label-horaFin{
+  font-weight: bold;
+}
+.init{
+  position: relative;
+  left: 10px;
+}
+.finish{
+  position: relative;
+  left: 24px;
+}
+
+.time{
+  position: relative;
+left: 50px;
+}
+
+.hInit {
+  position: relative;
+  left: 180px;
+}
+.hFinish {
+  position: relative;
+  left: 180px;
+}
+
 </style>

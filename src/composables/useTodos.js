@@ -20,7 +20,8 @@ const useTodos = () => {
   return {
     // router
     // Methods
-    createTodo: (title, text, category) => store.commit('createTodo', { title, text, category }),
+    createTodo: (title, text, init, finish, category) =>
+                store.commit('createTodo', { title, text, init, finish, category }),
     getTodos: computed(() => store.getters.getTodos)
   }
 }
