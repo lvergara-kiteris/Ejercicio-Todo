@@ -1,11 +1,16 @@
 <template>
   <div class="principal">
     <div class="logo">MO</div>
-    <div>
-     <!-- <input type="date"> -->
 
+    <div>
+      <span class="datepicker-toggle">
+        <span class="datepicker-toggle-button"></span>
+        <i class="fas fa-calendar-alt" style="color:white"></i>
+        <input id="datepicker" type="date" class="datepicker-input" v-model="date" >
+      </span>
     </div>
     <br />
+
     <div class="contenedor">
       <div class="scroll">
         <button type="button" class="button-scroll">JUN 01</button>
@@ -21,12 +26,12 @@
 
       <div class="card">
         <div class="title">TODAY TASKS</div>
+        <div class="vmodelDate">{{ date }}</div>
         <br>
         <span class = "category">{{selectCategory}}</span>
-
         <section class="timeline">
-          <ul class="ul-class">
-            <li class="li-class" v-for="todo in getTodos" :key="todo.id">
+          <ul class="ul-class" id="idUl" @click="compare()">
+            <li class="li-class" v-for="todo in getTodos" :key="todo.id" >
               <div>
               {{ todo.title}}
               <span class="hInit">{{todo.init}} - </span>
@@ -38,7 +43,7 @@
               </div>
             </li>
           </ul>
-        </section>
+      </section>
       </div>
     </div>
 
@@ -97,27 +102,28 @@
 import { ref } from 'vue'
 import useTodos from '../composables/useTodos'
 import Modal from './Modal.vue'
-// import Datepicker from 'vue3-date-time-picker'
 
 export default {
   // a parte de modal, Datepicker
   components: { Modal },
 
   setup () {
-    const { modalActive, toggleModal, getTodos, createTodo } = useTodos()
+    const { modalActive, toggleModal, getTodos, createTodo, compare } = useTodos()
 
     return {
       modalActive,
       toggleModal,
       getTodos,
       createTodo,
+      compare,
 
       isOpen: ref(false),
       newTodoTitle: ref(''),
       newTodoText: ref(''),
       newTodoTimeInit: ref(''),
       newTodoTimeFinish: ref(''),
-      selectCategory: ref('')
+      selectCategory: ref(''),
+      date: ref('')
     }
   }
 }
@@ -140,6 +146,13 @@ export default {
   max-width: 400px;
   padding: 25px;
   box-shadow: 0 3px 20px rgba(0, 0, 0, 0.9);
+}
+.vmodelDate {
+  color: white;
+  position: absolute;
+  bottom: 71%;
+  left: 280px;
+  font-size: 12px;
 }
 
 .modal-title {
@@ -225,6 +238,45 @@ input:focus {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.fas {
+font-size: 16px;
+}
+.datepicker-toggle {
+  position: relative;
+  bottom: 30px;
+  left: 330px;
+  width: 18px;
+  height: 19px;
+}
+.datepicker-toggle-button {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  }
+  .datepicker-input {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  box-sizing: border-box;
+    color: white;
+}
+.datepicker-input::-webkit-calendar-picker-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
 }
 
 .addEntryButtom {
@@ -365,6 +417,7 @@ margin-top: 15px;
   width: 52px;
   height: 100%;
   border-left: 2px solid hsla(240, 6%, 93%, 0.212);
+  background-image: url(../img/2786142.svg);
 }
 .li-class{
   position: relative;
@@ -420,12 +473,12 @@ left: 50px;
 }
 
 .hInit {
-  position: relative;
+  position: absolute;
   left: 180px;
 }
 .hFinish {
-  position: relative;
-  left: 180px;
+  position: absolute;
+  left: 220px;
 }
 
 </style>

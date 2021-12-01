@@ -16,9 +16,39 @@ const useTodos = () => {
       tabBar.scrollLeft -= 30
   }
   })
+/*
+const sortList = () => {
+  // eslint-disable-next-line camelcase
+  var ul = document.getElementById('idUl')
+
+  var lista = ul.getElementsByTagName('li')
+
+  var arrayLista = Array.from(lista)
+  console.log(arrayLista)
+  // arrayLista.sort((a, b) => a.textContent.localeCompare(b.textContent)).forEach(li => ul.appendChild(li))
+arrayLista.sort(function (a, b) {
+  return a.init - b.init
+})
+  console.log(arrayLista)
+}
+*/
+
+function compare () {
+  var ul = document.getElementById('idUl')
+  var li = document.createElement('li')
+  var array = ul.getElementsByTagName('li')
+  for (var i = 0; i < array.length; i++) {
+    array.push(array[i])
+    console.log(array.sort())
+    li.appendChild(array[i])
+  }
+  ul.appendChild(li)
+}
 
   return {
+
     // router
+    compare,
     // Methods
     createTodo: (title, text, init, finish, category) =>
                 store.commit('createTodo', { title, text, init, finish, category }),
